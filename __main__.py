@@ -1,28 +1,18 @@
 import sys
 import os
 import json
+import argparse
 
 # Compiling
 # for Windows: pyinstaller -D -F -n rhtml -w "main.py"
 # for MacOS: pyinstaller --windowed "main.py"
 # For Linux: pyinstaller -D -F -n rhtml -c "main.py"
 
-if len(sys.argv) == 1:
-    print("Usage: main.py <command>")
-    sys.exit(1)
+parser = argparse.ArgumentParser(description="A Python program where you can make use of simple components system.")
+parser.add_argument("action", help="The action you wanted to do. It should be either `init` or `build`.")
+args = parser.parse_args()
 
-command = sys.argv[1].lower()
-
-if command == "init":
-    # make json project file
-    f = open("project.json", "w")
-    f.write("{\n\t\"pages\":[\n\t]\n}")
-    f.close()
-
-    # make directory "src"
-    if os.path.isdir("./src") == False:
-        os.mkdir("src")
-elif command == "build":
+def build():
     filePath = "./src"
     
     errorCount = 0
@@ -91,3 +81,16 @@ elif command == "build":
             os.remove("./build/" + file)
 
     print("Build completed with " + str(errorCount) + " errors!")
+
+command = args.action
+if command == "init":
+    # make json project file
+    f = open("project.json", "w")
+    f.write("{\n\t\"pages\":[\n\t]\n}")
+    f.close()
+
+    # make directory "src"
+    if os.path.isdir("./src") == False:
+        os.mkdir("src")
+elif command == "build":
+    build()

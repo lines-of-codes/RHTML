@@ -36,7 +36,7 @@ def build():
 
     # copy files from source to build
     if os.path.isdir("./build/"):
-        os.rmdir("./build/")
+        shutil.rmtree("./build/")
     try:
         shutil.copytree(filePath, "./build/")
     except OSError as exc: # python >2.5

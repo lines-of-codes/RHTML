@@ -74,7 +74,7 @@ def build():
         # remove non-page files
         if file in pages:
             continue
-        else:
+        elif file.endswith(".html"):
             os.remove("./build/" + file)
 
     print("Build completed with " + str(errorCount) + " errors!")

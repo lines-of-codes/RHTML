@@ -3,10 +3,7 @@ import os
 import json
 import argparse
 
-# Compiling
-# for Windows: pyinstaller -D -F -n rhtml -w "main.py"
-# for MacOS: pyinstaller --windowed "main.py"
-# For Linux: pyinstaller -D -F -n rhtml -c "main.py"
+# Compiling: pyinstaller -D -F -n rhtml -w "main.py"
 
 parser = argparse.ArgumentParser(description="A Python program where you can make use of simple components system.")
 parser.add_argument("action", help="The action you wanted to do. It should be either `init` or `build`.")

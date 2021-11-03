@@ -28,7 +28,7 @@ Linux:
 - The directory `./src` contains all of the website source code. The RHTML compiler (or transpiler idk) will compile from this directory, to the `./build` directory.
 - Reusing another .html file is done by using
 ```
-#include(file.html)
+#include("file.html")
 ```
 *in a new line.* Include in RHTML is very similar to c++ `#include ""`'s. Except, it uses a parenthesis.
 

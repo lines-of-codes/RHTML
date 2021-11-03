@@ -2,8 +2,9 @@ import sys
 import os
 import json
 import argparse
+import shutil, errno
 
-# Compiling: pyinstaller -D -F -n rhtml -w "main.py"
+# Compiling: pyinstaller -D -F -n rhtml -w "__main__.py"
 
 parser = argparse.ArgumentParser(description="A Python program where you can make use of simple components system.")
 parser.add_argument("action", help="The action you wanted to do. It should be either `init` or `build`.")
@@ -34,48 +35,52 @@ def build():
         os.mkdir("build")
 
     # copy files from source to build
-    for file in os.listdir(filePath):
-        if file != "build":
-            with open(filePath + "/" + file, "r") as f:
-                content = f.read()
-            
-            with open("build/" + file, "w") as f:
-                f.write(content)
+    if os.path.isdir("./build/"):
+        os.rmdir("./build/")
+    try:
+        shutil.copytree(filePath, "./build/")
+    except OSError as exc: # python >2.5
+        if exc.errno in (errno.ENOTDIR, errno.EINVAL):
+            shutil.copy(src, dst)
+        else: raise
+
+
+    for subdir, dirs, files in os.walk("./build"):
+        for file in files:
+            if file.endswith(".html"):
+                # go through every "#include" statement in the file
+                with open("./build/" + file) as f:
+                    for line in f.readlines():
+                        if line.strip().startswith("#include"):
+                            # get the file name
+                            fileName = line.split("\"")[1]
+
+                            # get the file content
+                            if os.path.isfile("./build/" + fileName):
+                                f = open("./build/" + fileName, "r")
+                                content = f.read()
+                                f.close()
+
+                                # replace the "#include" statement with the file content
+                                            
+                                fr = open("./build/" + file, "r")
+                                content = fr.read().replace(line, content)
+                                fr.close()
+
+                                f = open("./build/" + file, "w")
+                                f.write(content + '\n')
+                                f.close()
+                            else:
+                                print("Error: " + fileName + " not found.")
+                                errorCount += 1
 
     for file in os.listdir("./build"):
-        if file.endswith(".html"):
-            # go through every "#include" statement in the file
-            with open("./build/" + file) as f:
-                for line in f.readlines():
-                    if line.strip().startswith("#include"):
-                        # get the file name
-                        fileName = line.split("\"")[1]
-
-                        # get the file content
-                        if os.path.isfile("./build/" + fileName):
-                            f = open("./build/" + fileName, "r")
-                            content = f.read()
-                            f.close()
-
-                            # replace the "#include" statement with the file content
-                                        
-                            fr = open("./build/" + file, "r")
-                            content = fr.read().replace(line, content)
-                            fr.close()
-
-                            f = open("./build/" + file, "w")
-                            f.write(content + '\n')
-                            f.close()
-                        else:
-                            print("Error: " + fileName + " not found.")
-                            errorCount += 1
-
-    for file in os.listdir("./build"):
-        # remove non-page files
-        if file in pages:
-            continue
-        elif file.endswith(".html"):
-            os.remove("./build/" + file)
+        if os.path.isfile(file):
+            # remove non-page files
+            if file in pages:
+                continue
+            elif file.endswith(".html"):
+                os.remove("./build/" + file)
 
     print("Build completed with " + str(errorCount) + " errors!")
 

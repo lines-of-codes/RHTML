@@ -46,4 +46,5 @@ Linux:
 The build is written to the directory `./build`
 
 Yep that's it. Have fun. :) 
+
 If you have any questions/features/etc., feel free to make a new issue about it. Now this small project of mine is almost finished so I won't be actively working on it. Still, I might do a little bit of improvements.

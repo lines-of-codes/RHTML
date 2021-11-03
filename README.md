@@ -3,7 +3,7 @@ RHTML stands for Reusable-Hyper-Text-Markup-Language, and is pronounced "Rech-te
 As the name stands, RHTML is a compiler-like-thing that lets you reuse HTML codes, so you won't have to spend 5 minutes on updating the navbar on your website across all 50+ pages by copy pasting. Well now that I've confused everyone even more, let's get into the actual important stuff.
 
 ### Installation
-It is as easy as grabbing one of the binaries from [the latest release](https://github.com/TheDuckDev/RHTML/releases/tag/v1.0). You may place the binary anywhere in your system. Adding that directory to your system PATH would make it easier for you. Otherwise you'll have to copy and paste this binary at the root directory of every singlle project. 
+It is as easy as grabbing one of the binaries from [the latest release](https://github.com/TheDuckDev/RHTML/releases/tag/v1.0). You may place the binary anywhere in your system. Adding that directory to your system PATH would make it easier for you. Otherwise you'll have to copy and paste this binary at the root directory of every single project. 
 
 Note: RHTML can only be used with Vanilla HTML. Aka it cannot be used with frameworks like NodeJS/ReactJS/etc. Besides there's no need for RHTML to support such frameworks as most of them already has this feature built in. 
 
@@ -30,7 +30,7 @@ Linux:
 ```
 #include("file.html")
 ```
-*in a new line.* Include in RHTML is very similar to c++ `#include ""`'s. Except, it uses a parenthesis.
+*in a new line.* Include in RHTML is very similar to c++ `#include ""`'s. Except, it uses a parenthesis and there's quotes around the file name.
 
 ### Building
 - Run the commmand `build` to build your files. 

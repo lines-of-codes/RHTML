@@ -9,6 +9,7 @@ Note: RHTML can only be used with Vanilla HTML. Aka it cannot be used with frame
 
 ### Creating an empty RHTML project
 - Run the command `init`.
+
 Windows:
 ```
 ./rhtml.exe init
@@ -33,6 +34,7 @@ Linux:
 
 ### Building
 - Run the commmand `build` to build your files. 
+
 Windows:
 ```
 ./rhtml.exe build

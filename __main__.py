@@ -74,13 +74,13 @@ def build():
                                 print("Error: " + fileName + " not found.")
                                 errorCount += 1
 
-    for file in os.listdir("./build"):
-        if os.path.isfile(file):
-            # remove non-page files
-            if file in pages:
-                continue
-            elif file.endswith(".html"):
-                os.remove("./build/" + file)
+    for subdir, dirs, files in os.walk("./build"):
+        for file in files:
+            if file.endswith(".html"):
+                if os.path.isfile("./build/" + file):
+                    if (file in pages) == False:
+                        print("in: " + file)
+                        os.remove("./build/" + file)
 
     print("Build completed with " + str(errorCount) + " errors!")
 
